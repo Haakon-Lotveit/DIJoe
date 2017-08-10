@@ -15,21 +15,25 @@ At your application's root, which is usually the main method, you create a new D
 A singleton can be named or unnamed. Unnamed singletons will get the name "default", and will be overwritten by later singletons called "default".
 
 Here's some example code that shows how you can use this thing:
-
+```java
 // It's instantiated like any other objet.
 DIJoe diJoe = new DIJoe();
 
 diJoe.bindSingleton(String.class, "Hello, World!", "std.greeting");
 diJoe.bindSingleton(String.class, "Hallo, Verda!");
+```
 
 We've now bound two singletons of the string type. one is named "std.greeting" and the other implicitly "default". Let's bind a PrintStream too.
 
+```java
 diJoe.bindSingleton(PrintStream.class, System.out);
+```
 
 How do you use this?
 
 Assume you have this class (and the relevant interface):
 
+```java
 // skipping over imports and package declarations
 
 public final class ExampleStringUser implements Greeter {
@@ -47,22 +51,28 @@ public final class ExampleStringUser implements Greeter {
     printer.println(greeting);
   }
 }
+```
 
 Now, let's say that we need this thing in our application. Normally, we'd do:
 
+```java
 Greeter greeter = new ExampleStringUser("Hallo, Verda!", System.out);
 greeter.greet();
 
 Notice that we have to set all the parameters manually, and we have to be explicit with what types we want.
 Now, using DI, we can just do this instead:
 
+```java
 Greeter greeter = diJoe.resolve(Greeter.class);
+```
 
 And it will crash immediately because you haven't told it what to do with Greeter types.
 
 If we set it up more though, like this:
 
+```java
 greeter.bindClass(Greeter.class, ExampleStringUser.class);
+```
 
 Then DIJoe will take a look at the ExampleStringUser class, and look for a constructor with @Inject annotated, and stop at the first one it finds, and store that. If it doesn't find one it will look for a no-args constructor it can use instead. If it can find that, it will happily use that instead. If it can't find either, it will crash and tell you that there were no valid constructors. (You can just add the @Inject annotation to one that suits the purpose.)
 
@@ -72,6 +82,7 @@ Now, the constructor that you put the @Inject annotation on, takes two arguments
 
 If we change our code to reflect this:
 
+```java
 // skipping over imports and package declarations
 
 public final class ExampleStringUser implements Greeter {
@@ -89,6 +100,8 @@ public final class ExampleStringUser implements Greeter {
     printer.println(greeting);
   }
 }
+```
+
 
 And note how it will look up the new singleton. If it cannot find the singleton, it will throw an exception. It will throw different exceptions depending on whether there are no singletons defined, or the one you specified is missing.
 
