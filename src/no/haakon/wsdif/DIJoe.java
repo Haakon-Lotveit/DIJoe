@@ -159,7 +159,7 @@ public class DIJoe {
 
 		HelloWorld hw  = di.resolve(HelloWorld.class);
 
-		System.out.println("Can we do this? " + di.resolve(String.class, "std.greeting"));
+		System.out.println("We can do this: " + di.resolve(String.class, "std.greeting"));
 		hw.greet();
 	}
 }
