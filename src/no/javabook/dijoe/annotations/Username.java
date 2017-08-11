@@ -1,4 +1,4 @@
-package no.haakon.wsdif;
+package no.javabook.dijoe.annotations;
 
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -6,8 +6,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+
 @Retention(RUNTIME)
 @Target(PARAMETER)
-public @interface InjectSingleton {
-	String value() default "default";
+public @interface Username {
 }

@@ -1,4 +1,4 @@
-package no.haakon.wsdif;
+package no.javabook.dijoe.annotations;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
